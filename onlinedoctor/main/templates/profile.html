@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Medic Care - Profile</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo-medic-care.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <style>
+        /* Profil rasmini dumaloq qilish uchun CSS */
+        .profile-img {
+            border-radius: 50%; /* Doira shakli uchun */
+            object-fit: cover; /* Rasmni moslashtirish uchun */
+            width: 200px; /* Rasmning kengligi */
+            height: 200px; /* Rasmning balandligi (doira uchun teng bo'lishi kerak) */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg shadow-lg">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Medic Care</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'doctors' %}">Doctors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'booking' %}">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'records' %}">Records</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'settings' %}">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h2>My Profile</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <div class="card">
+            <div class="card-body">
+                {% if user_profile.photo %}
+                    <img src="{{ user_profile.photo.url }}" alt="Profile Photo" class="profile-img">
+                {% else %}
+                    <img src="{% static 'images/default-profile.png' %}" alt="Default Profile Photo" class="profile-img">
+                {% endif %}
+                <h4>{{ user_profile.name|default:user.username }}</h4>
+                <p><strong>Age:</strong> {{ user_profile.age|default:'Not set' }}</p>
+                <p><strong>Role:</strong> {{ user_profile.role|capfirst }}</p>
+                <p><strong>Email:</strong> {{ user_profile.email|default:'Not set' }}</p>
+                <p><strong>Phone:</strong> {{ user_profile.phone|default:'Not set' }}</p>
+                <p><strong>Theme:</strong> {{ user_profile.theme|capfirst }}</p>
+                <p><strong>Languages:</strong> {{ user_profile.languages|default:'Not set' }}</p>
+                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" name="edit_profile" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const theme = "{{ user_profile.theme|default:'light' }}";
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        });
+    </script>
+</body>
+</html>

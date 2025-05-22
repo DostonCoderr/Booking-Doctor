@@ -1,0 +1,361 @@
+/* General Body Styling */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f4f7f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 5px 0;
+    font-size: 0.9rem;
+}
+
+.navbar-brand {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #007bff;
+    padding: 0 15px;
+    margin: 0;
+}
+
+.navbar-brand:hover {
+    color: #0056b3;
+}
+
+.nav-link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #555;
+    margin: 0 10px;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #007bff;
+}
+
+.dropdown-toggle {
+    color: #555;
+    padding: 5px 10px;
+}
+
+.dropdown-toggle:hover {
+    color: #007bff;
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    min-width: 120px;
+}
+
+.dropdown-item {
+    font-size: 0.9rem;
+    color: #333;
+    padding: 5px 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.dropdown-divider {
+    border-top: 1px solid #e0e0e0;
+}
+
+.navbar-nav {
+    align-items: center;
+}
+
+.navbar-collapse {
+    justify-content: space-between;
+}
+
+/* Main Container Styling */
+.container {
+    padding-top: 60px;
+    padding-bottom: 50px;
+}
+
+h2, h3 {
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 2rem;
+    text-align: center;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+/* Form Styling */
+.form-container {
+    max-width: 500px; /* More compact form width */
+    margin: 0 auto 40px auto;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.form-container:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.form-group {
+    margin-bottom: 15px;
+    position: relative; /* For icon positioning */
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 10px 10px 35px; /* Space for icon */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background-color: #fafafa;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    background-color: #fff;
+    outline: none;
+}
+
+.form-group textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Icon Styling */
+.form-group i {
+    position: absolute;
+    left: 10px;
+    top: 35px; /* Adjust based on label height */
+    color: #007bff;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.form-group input:focus + i,
+.form-group select:focus + i,
+.form-group textarea:focus + i {
+    color: #0056b3;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 20px;
+    color: #fff;
+    display: block;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.02);
+}
+
+/* Records and Reviews Styling */
+.list-group {
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+}
+
+.list-group-item {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.list-group-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.list-group-item strong {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.list-group-item br {
+    margin-bottom: 8px;
+}
+
+p {
+    text-align: center;
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 0;
+    }
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    .nav-link {
+        font-size: 0.85rem;
+        margin: 0 5px;
+        padding: 5px;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    h3 {
+        font-size: 1.2rem;
+    }
+    .form-container {
+        padding: 20px;
+    }
+    .form-group i {
+        top: 30px;
+    }
+    .list-group-item {
+        padding: 15px;
+    }
+}
+
+/* Dark Mode Styling */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #d4d4d4;
+}
+
+body.dark-mode .navbar {
+    background-color: #2c2c2c;
+}
+
+body.dark-mode .nav-link,
+body.dark-mode .dropdown-toggle {
+    color: #d4d4d4;
+}
+
+body.dark-mode .nav-link:hover,
+body.dark-mode .dropdown-toggle:hover {
+    color: #66b0ff;
+}
+
+body.dark-mode .dropdown-menu {
+    background-color: #2c2c2c;
+}
+
+body.dark-mode .dropdown-item {
+    color: #d4d4d4;
+}
+
+body.dark-mode .dropdown-item:hover {
+    background-color: #66b0ff;
+    color: #fff;
+}
+
+body.dark-mode h2,
+body.dark-mode h3 {
+    color: #66b0ff;
+}
+
+body.dark-mode p {
+    color: #b0b0b0;
+}
+
+body.dark-mode .form-container {
+    background-color: #2c2c2c;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .form-container:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .form-group label {
+    color: #d4d4d4;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group select,
+body.dark-mode .form-group textarea {
+    background-color: #333;
+    color: #d4d4d4;
+    border-color: #444;
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group select:focus,
+body.dark-mode .form-group textarea:focus {
+    border-color: #66b0ff;
+    box-shadow: 0 0 5px rgba(102, 176, 255, 0.3);
+    background-color: #444;
+}
+
+body.dark-mode .form-group i {
+    color: #66b0ff;
+}
+
+body.dark-mode .form-group input:focus + i,
+body.dark-mode .form-group select:focus + i,
+body.dark-mode .form-group textarea:focus + i {
+    color: #4b8de7;
+}
+
+body.dark-mode .list-group-item {
+    background-color: #2c2c2c;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .list-group-item:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .list-group-item strong {
+    color: #66b0ff;
+}
+
+body.dark-mode .btn-primary {
+    background-color: #66b0ff;
+}
+
+body.dark-mode .btn-primary:hover {
+    background-color: #4b8de7;
+}

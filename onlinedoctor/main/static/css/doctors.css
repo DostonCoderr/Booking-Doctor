@@ -1,0 +1,329 @@
+/* General Body Styling */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f4f7f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 5px 0;
+    font-size: 0.9rem;
+}
+
+.navbar-brand {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #007bff;
+    padding: 0 15px;
+    margin: 0;
+}
+
+.navbar-brand:hover {
+    color: #0056b3;
+}
+
+.nav-link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #555;
+    margin: 0 10px;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #007bff;
+}
+
+.dropdown-toggle {
+    color: #555;
+    padding: 5px 10px;
+}
+
+.dropdown-toggle:hover {
+    color: #007bff;
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    min-width: 120px;
+}
+
+.dropdown-item {
+    font-size: 0.9rem;
+    color: #333;
+    padding: 5px 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.dropdown-divider {
+    border-top: 1px solid #e0e0e0;
+}
+
+.navbar-nav {
+    align-items: center;
+}
+
+.navbar-collapse {
+    justify-content: space-between;
+}
+
+/* Main Container Styling */
+.container {
+    padding-top: 60px;
+    padding-bottom: 50px;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Card Styling */
+.card {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    perspective: 1000px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px) rotateY(5deg);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 150px; /* Kichikroq rasm balandligi */
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    transition: transform 0.5s ease;
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.doctor-img {
+    width: 120px; /* Kichikroq rasm o'lchami */
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%; /* Doira shakli */
+    border: 3px solid #007bff; /* Chegara */
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.doctor-img:hover {
+    transform: scale(1.1);
+    border-color: #0056b3;
+}
+
+.card-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border: none;
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 20px;
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    transform: scale(1.05);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 20px;
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* No Doctors Message */
+p {
+    text-align: center;
+    color: #666;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 0;
+    }
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    .nav-link {
+        font-size: 0.85rem;
+        margin: 0 5px;
+        padding: 5px;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    .card {
+        margin-bottom: 15px;
+    }
+    .card-img-top {
+        height: 120px; /* Kichik ekranlar uchun rasm balandligi */
+    }
+    .doctor-img {
+        width: 100px;
+        height: 100px;
+    }
+    .card-body {
+        padding: 15px;
+    }
+    .card-title {
+        font-size: 1.2rem;
+    }
+    .card-text {
+        font-size: 0.85rem;
+    }
+    .btn-info, .btn-primary {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Dark Mode Styling */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #d4d4d4;
+}
+
+body.dark-mode .navbar {
+    background-color: #2c2c2c;
+}
+
+body.dark-mode .nav-link,
+body.dark-mode .dropdown-toggle {
+    color: #d4d4d4;
+}
+
+body.dark-mode .nav-link:hover,
+body.dark-mode .dropdown-toggle:hover {
+    color: #66b0ff;
+}
+
+body.dark-mode .dropdown-menu {
+    background-color: #2c2c2c;
+}
+
+body.dark-mode .dropdown-item {
+    color: #d4d4d4;
+}
+
+body.dark-mode .dropdown-item:hover {
+    background-color: #66b0ff;
+    color: #fff;
+}
+
+body.dark-mode h2 {
+    color: #66b0ff;
+}
+
+body.dark-mode p {
+    color: #b0b0b0;
+}
+
+body.dark-mode .card {
+    background-color: #2c2c2c;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .card-title {
+    color: #d4d4d4;
+}
+
+body.dark-mode .card-text {
+    color: #b0b0b0;
+}
+
+body.dark-mode .doctor-img {
+    border-color: #66b0ff;
+}
+
+body.dark-mode .doctor-img:hover {
+    border-color: #4b8de7;
+}
+
+body.dark-mode .btn-info {
+    background-color: #17a2b8;
+}
+
+body.dark-mode .btn-info:hover {
+    background-color: #138496;
+}
+
+body.dark-mode .btn-primary {
+    background-color: #66b0ff;
+}
+
+body.dark-mode .btn-primary:hover {
+    background-color: #4b8de7;
+}

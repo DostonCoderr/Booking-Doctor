@@ -1,0 +1,44 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ user_profile.languages|default:'uz' }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Medic Care - {% trans "Booking Track" %}</title>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <style>
+        .status-pending { background-color: #ffeb3b; padding: 5px; border-radius: 5px; color: black; }
+        .status-accepted { background-color: #4caf50; color: white; padding: 5px; border-radius: 5px; }
+        .status-completed { background-color: #9e9e9e; color: white; padding: 5px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>{% trans "Booking Track" %}</h1>
+        {% if appointments %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>{% trans "Doctor" %}</th>
+                        <th>{% trans "Date" %}</th>
+                        <th>{% trans "Status" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in appointments %}
+                        <tr>
+                            <td>{{ appointment.doctor.name }}</td>
+                            <td>{{ appointment.date }}</td>
+                            <td class="status-{{ appointment.status }}">{{ appointment.get_status_display }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>{% trans "No bookings found." %}</p>
+        {% endif %}
+        <a href="{% url 'home' %}" class="btn btn-primary">{% trans "Back to Home" %}</a>
+    </div>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

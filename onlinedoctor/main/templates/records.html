@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Medic Care - Records</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'css/templatemo-medic-care.css' %}" rel="stylesheet">
+    <link href="{% static 'css/records.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg  shadow-lg">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Medic Care</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'doctors' %}">Doctors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'booking' %}">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'records' %}">Records</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'settings' %}">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h2>View Medical Records</h2>
+        <div class="form-container">
+            <form method="post" action="{% url 'update_record' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ record_form.diagnosis.id_for_label }}">Diagnosis</label>
+                    {{ record_form.diagnosis }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ record_form.test_results.id_for_label }}">Test Results</label>
+                    {{ record_form.test_results }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ record_form.examination_notes.id_for_label }}">Examination Notes</label>
+                    {{ record_form.examination_notes }}
+                </div>
+                <button type="submit" class="btn btn-primary">Update Record</button>
+            </form>
+        </div>
+        {% if records %}
+            <h3>Your Records</h3>
+            <ul class="list-group">
+            {% for record in records %}
+                <li class="list-group-item">
+                    <strong>Diagnosis:</strong> {{ record.diagnosis }}<br>
+                    <strong>Test Results:</strong> {{ record.test_results|default:"No results" }}<br>
+                    <strong>Examination Notes:</strong> {{ record.examination_notes|default:"No notes" }}<br>
+                    <strong>Last Updated:</strong> {{ record.last_updated|date:"d M Y, H:i" }}
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No records found.</p>
+        {% endif %}
+        <h3>Doctor Reviews</h3>
+        {% if doctor_reviews %}
+            <ul class="list-group">
+            {% for review in doctor_reviews %}
+                <li class="list-group-item">{{ review }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No doctor reviews yet.</p>
+        {% endif %}
+        <h3>Clinic Reviews</h3>
+        {% if clinic_reviews %}
+            <ul class="list-group">
+            {% for review in clinic_reviews %}
+                <li class="list-group-item">{{ review }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No clinic reviews yet.</p>
+        {% endif %}
+    </div>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const theme = "{{ user_profile.theme|default:'light' }}";
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        });
+    </script>
+</body>
+</html>

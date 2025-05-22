@@ -1,0 +1,22 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ user_profile.languages|default:'uz' }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Medic Care - {% trans "Booking Success" %}</title>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>{% trans "Booking Success" %}</h1>
+        {% if appointment %}
+            <p>{% trans "Your booking with" %} {{ appointment.doctor.name }} {% trans "on" %} {{ appointment.date }} {% trans "has been submitted and is awaiting approval." %}</p>
+        {% else %}
+            <p>{% trans "No recent booking found." %}</p>
+        {% endif %}
+        <a href="{% url 'home' %}" class="btn btn-primary">{% trans "Back to Home" %}</a>
+    </div>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

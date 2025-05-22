@@ -1,0 +1,109 @@
+{% load static i18n %}  <!-- i18n qo'shildi -->
+<!DOCTYPE html>
+<html lang="{{ user_profile.languages|default:'en' }}">  <!-- Foydalanuvchi tanlagan tilni ishlatish -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Medic Care - {% trans "Settings" %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo-medic-care.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg shadow-lg">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Medic Care</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">{% trans "Home" %}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'doctors' %}">{% trans "Doctors" %}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'booking' %}">{% trans "Booking" %}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'records' %}">{% trans "Records" %}</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">{% trans "Profile" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'settings' %}">{% trans "Settings" %}</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h2>{% trans "Settings" %}</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <form method="post" enctype="multipart/form-data" class="row g-3">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <label for="{{ form.name.id_for_label }}" class="form-label">{% trans "Name" %}</label>
+                {{ form.name }}
+            </div>
+            <div class="col-md-6">
+                <label for="{{ form.age.id_for_label }}" class="form-label">{% trans "Age" %}</label>
+                {{ form.age }}
+            </div>
+            <div class="col-md-6">
+                <label for="{{ form.photo.id_for_label }}" class="form-label">{% trans "Photo" %}</label>
+                {{ form.photo }}
+            </div>
+            <div class="col-md-6">
+                <label for="{{ form.theme.id_for_label }}" class="form-label">{% trans "Theme" %}</label>
+                {{ form.theme }}
+            </div>
+            <div class="col-md-6">
+                <label for="{{ form.email.id_for_label }}" class="form-label">{% trans "Email" %}</label>
+                {{ form.email }}
+            </div>
+            <div class="col-md-6">
+                <label for="{{ form.phone.id_for_label }}" class="form-label">{% trans "Phone" %}</label>
+                {{ form.phone }}
+            </div>
+            <div class="col-md-6">
+                <label for="{{ form.languages.id_for_label }}" class="form-label">{% trans "Language" %}</label>
+                {{ form.languages }}
+            </div>
+            <div class="col-12">
+                <button type="submit" name="save_settings" class="btn btn-primary">{% trans "Save Settings" %}</button>
+            </div>
+        </form>
+    </div>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const theme = "{{ user_profile.theme|default:'light' }}";
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+            // Tilni o'zgartirish uchun session ga saqlash
+            const languageSelect = document.querySelector('#id_languages');
+            languageSelect.addEventListener('change', function() {
+                const selectedLanguage = this.value;
+                fetch('/set-language/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: `language=${selectedLanguage}`
+                }).then(() => {
+                    location.reload(); // Sahifani qayta yuklash
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Medic Care - Doctor Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'css/templatemo-medic-care.css' %}" rel="stylesheet">
+    <link href="{% static 'css/doctors.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top shadow-lg">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Medic Care</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'doctors' %}">Doctors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'booking' %}">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'records' %}">Records</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'settings' %}">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h2>Doctor Details</h2>
+        <div class="card">
+            <div class="card-body">
+                <div class="text-center mb-3">
+                    {% if doctor.image %}
+                        <img src="{{ doctor.image.url }}" class="doctor-img" alt="{{ doctor.name }}">
+                    {% else %}
+                        <img src="{% static 'images/default_doctor.jpg' %}" class="doctor-img" alt="Default Doctor">
+                    {% endif %}
+                </div>
+                <h5 class="card-title">{{ doctor.name }}</h5>
+                <p class="card-text"><i class="bi bi-heart-pulse me-2"></i>Specialty: {{ doctor.specialty }}</p>
+                <p class="card-text"><i class="bi bi-people me-2"></i>Patients: {{ doctor.patients.count }}</p>
+                <p class="card-text"><i class="bi bi-briefcase me-2"></i>Experience: {{ doctor.experience_years|default:"Not specified" }} years</p>
+                <p class="card-text"><i class="bi bi-telephone me-2"></i>Contact: {{ doctor.contact_info|default:"Not specified" }}</p>
+                <p class="card-text"><i class="bi bi-chat-left-text me-2"></i>Reviews: {{ doctor.reviews|default:"No reviews yet" }}</p>
+                <a href="{% url 'doctors' %}" class="btn btn-primary">Back to Doctors</a>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const theme = "{{ user_profile.theme|default:'light' }}";
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        });
+    </script>
+</body>
+</html>

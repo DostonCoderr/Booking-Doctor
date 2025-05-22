@@ -1,0 +1,27 @@
+# .gitignore
+# Python/Django
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+*.env
+*.sqlite3
+*.log
+
+# Django
+media/
+staticfiles/
+*.bak
+*.swp
+*~
+
+# MacOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/

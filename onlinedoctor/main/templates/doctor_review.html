@@ -1,0 +1,28 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ user_profile.languages|default:'uz' }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Medic Care - {% trans "Review Doctor" %}</title>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>{% trans "Review Doctor" %}</h1>
+        {% if appointment %}
+            <p>{% trans "Doctor" %}: {{ appointment.doctor.name }}</p>
+            <p>{% trans "Date" %}: {{ appointment.date }}</p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">{% trans "Save Review" %}</button>
+            </form>
+        {% else %}
+            <p>{% trans "No completed appointment to review." %}</p>
+        {% endif %}
+        <a href="{% url 'booking_track' %}" class="btn btn-secondary mt-3">{% trans "Back to Booking Track" %}</a>
+    </div>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

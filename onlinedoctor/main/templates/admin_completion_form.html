@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+{% block title %}{% trans "Dashboard" %}{% endblock %}
+{% block content %}
+    <h1>{% trans "Welcome" %}, {{ user.username }}!</h1>
+    <p>{% trans "Access your personalized healthcare services here." %}</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{% trans "Book Appointment" %}</h5>
+                    <p class="card-text">{% trans "Schedule a visit with a doctor." %}</p>
+                    <a href="{% url 'booking' %}" class="btn btn-primary">{% trans "Go to Booking" %}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{% trans "View Records" %}</h5>
+                    <p class="card-text">{% trans "Check your medical history." %}</p>
+                    <a href="{% url 'records' %}" class="btn btn-primary">{% trans "View Records" %}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{% trans "Find Doctors" %}</h5>
+                    <p class="card-text">{% trans "Explore our specialists." %}</p>
+                    <a href="{% url 'doctors' %}" class="btn btn-primary">{% trans "View Doctors" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2>{% trans "Your Bookings" %}</h2>
+            {% if appointments %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Doctor" %}</th>
+                            <th>{% trans "Date" %}</th>
+                            <th>{% trans "Status" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for appointment in appointments %}
+                            <tr>
+                                <td>{{ appointment.doctor__name }}</td>
+                                <td>{{ appointment.date }}</td>
+                                <td class="status-{{ appointment.status }}">{{ appointment.status|title }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>{% trans "You have no bookings yet." %}</p>
+            {% endif %}
+            <a href="{% url 'booking_track' %}" class="btn btn-secondary">{% trans "View All Bookings" %}</a>
+        </div>
+    </div>
+
+    {% if patient %}
+    <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewModalLabel">{% trans "Leave a Review" %}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Yopish"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reviewForm" method="post" action="{% url 'doctor_review' %}">
+                        {% csrf_token %}
+                        <div id="reviewFormContent"></div>
+                        <button type="submit" class="btn btn-primary">{% trans "Save Review" %}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const theme = "{{ user_profile.theme|default:'light' }}";
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+
+            const appointments = {{ appointments|safe }};
+            appointments.forEach(appointment => {
+                if (appointment.status === 'completed' && !localStorage.getItem(`reviewed_${appointment.id}`)) {
+                    fetch('/doctor-review/', {
+                        method: 'GET',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                    })
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById('reviewFormContent').innerHTML = html;
+                        const modal = new bootstrap.Modal(document.getElementById('reviewModal'));
+                        modal.show();
+                        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+                            localStorage.setItem(`reviewed_${appointment.id}`, 'true');
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}
